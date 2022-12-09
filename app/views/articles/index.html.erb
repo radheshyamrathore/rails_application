@@ -1,0 +1,124 @@
+<h1>Hello i am Radhe</h1>
+<!--<h1>Articles</h1>
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <a href="/articles/<%= article.id %>">
+        <%= article.username %>
+      </a>
+    </li>
+  <% end %>
+</ul> -->
+<%
+=begin%>
+ 
+<h1>Articles</h1>
+Our blog has <%= Article.public_count %> articles and counting!
+<ul>
+  <% @articles.each do |article| %>
+    <% unless article.archived? %>
+      <li>
+        <%= link_to article.username, article %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+<%= link_to "New Article", new_article_path %>
+
+<!-- <h1>Articles</h1>
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <a href="<%= article_path(article) %>">
+        <%= article.username %>
+      </a>
+    </li>
+  <% end %>
+</ul> -->
+<%
+=end%>
+<style>
+table,th{
+  border:1px solid black;
+  background-color: #FFFFE0;
+}
+/* tr:nth-child(even) {
+  background-color: #D6EEEE;
+} */
+tr:hover {background-color: #D6EEEE;}
+
+td:nth-child(even), th:nth-child(even) {
+  background-color: #e6e6e6;
+}
+
+#articles {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  
+}
+
+#articles td, #articles th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#articles th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #FFFF00;
+  color: white;
+}
+</style>
+</head>
+<h2>This is My Rails project!</h2>
+
+Our blog has <%= Article.public_count %> article and counting!<br>
+
+<br>
+<br>
+
+<table id="customers">
+  <center><tr>
+    <th style="background-color:#00FF00">sr.no.</th>
+    <th style="background-color:#00FF00">Article</th>
+    <th style="background-color:#00FF00">Body</th>
+    <th style="background-color:#00FF00">created at</th>
+    <th style="background-color:#00FF00">updated at</th>
+    <th style="background-color:#00FF00">Action</th>
+    <th style="background-color:#00FF00">New Article create</th>
+
+  </tr></center>
+  <tr>
+  <% @articles.each do |article| %>
+    <% unless article.archived? %>
+    <td>
+        <%=article.id%>
+      </td>
+    <td>
+        <%= link_to article.username, article %>
+      </td>
+    <td>
+        <p><%=article.password %></p>  
+      </td>
+    <td><%=article.created_at %>
+      </td>
+
+      <td><%=article.updated_at%>
+      </td>
+      
+    <td>
+    <pre><%= link_to "Edit",action: :edit, id: article.id %> || <%= link_to "Destroy",article_path( article.id), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  }%></pre>
+    </td>
+    <td><center><%= link_to "New Article", new_article_path %></center> </td>
+  </tr>
+  <% end %>
+  <% end %>
+</table>
+<br>
+<br>
+<br>
